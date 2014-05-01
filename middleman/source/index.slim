@@ -5,12 +5,13 @@ description:
 js: ["top"]
 ---
 #main
-  ul#links
-    li.cont v-repeat="conts" v-text="name" v-on="click: selectCont" id="cont{{$index}}"
+  article#links v-show="shown"
+    ul
+      li.cont v-repeat="conts" v-text="name" v-on="click: selectCont" id="cont{{$index}}"
 
   #pages class="{{name}} pages"
-    article v-repeat="pages" class="{{type}}" v-on="click: next" v-show="$index === index"
-      |{{$index}} {{text}}
+    article v-repeat="pages" class="{{type}}" v-on="click: next" v-show="$index === currentPage"
+      |{{$index}} {{text}} aa {{currentPage}} {{name}} bb
 
 script#basic type="x-template"
   p style="color: red"

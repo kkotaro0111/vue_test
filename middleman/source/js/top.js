@@ -7,9 +7,7 @@ $(function(){
     el: "#links",
     data:{
       conts: [],
-      name: "",
-      pages: [],
-      currentPage: 0
+      shown: true 
     },
     created: function(){
       console.log("created", arguments);
@@ -41,44 +39,66 @@ $(function(){
       selectCont: function(e){
         var idx = parseInt($(e.target).attr("id").replace(/#?cont/, ""));
         pages.setData(this.conts[idx]);
+      },
+      hide: function(){
+        this.$set("shown", false);
+      },
+      show: function(){
+        this.$set("shown", true);
       }
     }
   });
 
   var pages = new Vue({
     el: "#pages",
+    data: {
+      currentPage: 0,
+      name: "",
+      pages: []
+    },
     created: function(){
-      console.log("created", arguments);
+      console.log("pages created", arguments);
     },
     ready: function(){
-      console.log("ready", arguments);
+      console.log("pages ready", arguments);
     },
     attached: function(){
-      console.log("attached", arguments);
+      console.log("pages attached", arguments);
     },
     detached: function(){
-      console.log("detached", arguments);
+      console.log("pages detached", arguments);
     },
     beforeDestroy: function(){
-      console.log("beforeDestroy", arguments);
+      console.log("pages beforeDestroy", arguments);
     },
     afterDestory: function(){
-      console.log("afterDestroy", arguments);
+      console.log("pages afterDestroy", arguments);
     },
     methods: {
       next: function(e){
-        this.index = ( this.index + this.pages.length + 1 ) % this.pages.length;
+        if( this.currentPage + 1 === this.pages.length ){
+          contents.show();
+          this.$set("pages", []);
+          this.$set("name", "");
+        }else{
+          this.currentPage = ( this.currentPage + this.pages.length + 1 ) % this.pages.length;
+        }
       },
       setData: function(cont){
-        console.log("setData", cont);
-        this.$set("index", 0);
+        this.$set("currentPage", 0);
         this.$set("pages", cont.pages);
         this.$set("name", cont.name);
+
+        console.log( this.name);
+        console.log( this.currentPage);
+
+        contents.hide();
       }
     }
   });
 
   window.contents = contents;
+  window.pages = pages;
 
 
 });
