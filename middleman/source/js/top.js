@@ -79,8 +79,7 @@ $(function(){
       next: function(e){
         if( this.currentPage + 1 === this.pages.length ){
           contents.show();
-          this.$set("pages", []);
-          this.$set("name", "");
+          this.clear();
         }else{
           this.currentPage = ( this.currentPage + this.pages.length + 1 ) % this.pages.length;
         }
@@ -98,6 +97,12 @@ $(function(){
         console.log( this.currentPage);
 
         contents.hide();
+      },
+      clear: function(){
+        this.$set("pages", []);
+        this.$set("name", "");
+        this.$set("currentPage", 0);
+        this.$set("message", "");
       }
     }
   });
