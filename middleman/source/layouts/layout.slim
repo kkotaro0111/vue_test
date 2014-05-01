@@ -22,7 +22,7 @@ html
     == yield
     == partial "layouts/footer"
 
-    - jses = ["jquery-2.0.3.min","underscore-min","sugar-full.min","json2","backbone-min","backbone.babysitter.min","backbone.marionette.min","backbone.wreqr.min", "base"];
+    - jses = ["jquery-2.0.3.min","underscore-min","sugar-full.min","json2","backbone-min","backbone.babysitter.min","backbone.marionette.min","backbone.wreqr.min","vue", "base"];
 
     - if data.page.js
       - jses.concat(data.page.js)
