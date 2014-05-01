@@ -10,11 +10,18 @@ js: ["top"]
       li.cont v-repeat="conts" v-text="name" v-on="click: selectCont" id="cont{{$index}}"
 
   #pages class="{{name}} pages"
-    article v-repeat="pages" class="{{type}}" v-on="click: next" v-show="$index === currentPage"
-      |{{$index}} {{text}} aa {{currentPage}} {{name}} bb
+    article v-repeat="pages" class="{{type}}" v-show="$index === currentPage"
+      .image
+      .next v-on="click: next"
+        |next
+      p {{text}}
+      #inputform v-if="type === 'form'"
+        textarea#ta v-model="message" v-on="keyup: keyup" max-length="50"
+      p v-if="type === 'yeah'"
+        |{{message}} 
 
-script#basic type="x-template"
-  p style="color: red"
-    |{{text}}
+
+
+
 
 

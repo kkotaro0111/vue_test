@@ -54,7 +54,8 @@ $(function(){
     data: {
       currentPage: 0,
       name: "",
-      pages: []
+      pages: [],
+      message: ""
     },
     created: function(){
       console.log("pages created", arguments);
@@ -83,6 +84,10 @@ $(function(){
         }else{
           this.currentPage = ( this.currentPage + this.pages.length + 1 ) % this.pages.length;
         }
+      },
+      keyup: function(){
+        //console.log("keyup", arguments);
+        console.log("modelcheck", this);
       },
       setData: function(cont){
         this.$set("currentPage", 0);
