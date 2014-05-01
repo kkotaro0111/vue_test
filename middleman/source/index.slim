@@ -5,10 +5,15 @@ description:
 js: ["top"]
 ---
 #main
-  ul#links v-on="click: setContent"
-    li.cont v-repeat="conts" v-text="name"
+  ul#links
+    li.cont v-repeat="conts" v-text="name" v-on="click: selectCont" id="cont{{$index}}"
 
-  #pages class="{{name}}"
-    article v-repeat="pages" v-show="$index === currentPage" class="{{type}}" v-text="text" v-on="click: next"
+  #pages class="{{name}} pages"
+    article v-repeat="pages" class="{{type}}" v-on="click: next" v-show="$index === index"
+      |{{$index}} {{text}}
+
+script#basic type="x-template"
+  p style="color: red"
+    |{{text}}
 
 

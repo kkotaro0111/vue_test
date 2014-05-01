@@ -4,7 +4,7 @@ var app = app || {};
 
 $(function(){
   var contents = new Vue({
-    el: "#main",
+    el: "#links",
     data:{
       conts: [],
       name: "",
@@ -26,38 +26,59 @@ $(function(){
       console.log("ready", arguments);
     },
     attached: function(){
-      console.log("attached", artuments);
+      console.log("attached", arguments);
     },
     detached: function(){
-      console.log("detached", artuments);
+      console.log("detached", arguments);
     },
     beforeDestroy: function(){
-      console.log("beforeDestroy", artuments);
+      console.log("beforeDestroy", arguments);
     },
     afterDestory: function(){
-      console.log("afterDestroy", artuments);
+      console.log("afterDestroy", arguments);
     },
     methods: {
-      setContent: function(e){
-        console.log(this, e, e.currentTarget, e.target );
-        var t$ = $(e.target);
-        if( t$.hasClass("cont")){
-          var conts$ = $("#links").find(".cont");
-          var contindex = conts$.index(t$);
+      selectCont: function(e){
+        var idx = parseInt($(e.target).attr("id").replace(/#?cont/, ""));
+        pages.setData(this.conts[idx]);
+      }
+    }
+  });
 
-          var usedata = this.conts[contindex];
-          if( usedata ){
-            this.name = usedata.name;
-            this.pages = usedata.pages;
-          }
-        }
-      },
+  var pages = new Vue({
+    el: "#pages",
+    created: function(){
+      console.log("created", arguments);
+    },
+    ready: function(){
+      console.log("ready", arguments);
+    },
+    attached: function(){
+      console.log("attached", arguments);
+    },
+    detached: function(){
+      console.log("detached", arguments);
+    },
+    beforeDestroy: function(){
+      console.log("beforeDestroy", arguments);
+    },
+    afterDestory: function(){
+      console.log("afterDestroy", arguments);
+    },
+    methods: {
       next: function(e){
-        this.currentPage = ( this.currentPage + this.pages.length + 1 ) % this.pages.length;
+        this.index = ( this.index + this.pages.length + 1 ) % this.pages.length;
+      },
+      setData: function(cont){
+        console.log("setData", cont);
+        this.$set("index", 0);
+        this.$set("pages", cont.pages);
+        this.$set("name", cont.name);
       }
     }
   });
 
   window.contents = contents;
+
 
 });
