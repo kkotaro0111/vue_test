@@ -6,16 +6,8 @@ js: ["top"]
 ---
 #main
   ul#links v-on="click: setContent"
-    li.cont.cont1
-      | select 1st cont
-    li.cont
-      | select 2nd cont
-    li.cont
-      | select 3rd cont
-    li.cont
-      | select 4th cont
-    li.cont
-      | select 5th cont
+    li.cont v-repeat="conts" v-text="name"
+
   #pages class="{{name}}"
     article v-repeat="pages" v-show="$index === currentPage" class="{{type}}" v-text="text" v-on="click: next"
 

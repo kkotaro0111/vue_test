@@ -3,20 +3,39 @@
 var app = app || {};
 
 $(function(){
-  $.ajax({
-    url: "./json/data.json",
-    dataType: "json",
-  }).then(function(data){
-    console.log(data);
-    app.data = data;
-  });
-
   var contents = new Vue({
     el: "#main",
     data:{
+      conts: [],
       name: "",
       pages: [],
       currentPage: 0
+    },
+    created: function(){
+      console.log("created", arguments);
+      var self = this;
+      $.ajax({
+        url: "./json/data.json",
+        dataType: "json",
+      }).then(function(data){
+        console.log(data);
+        self.conts = data;
+      });
+    },
+    ready: function(){
+      console.log("ready", arguments);
+    },
+    attached: function(){
+      console.log("attached", artuments);
+    },
+    detached: function(){
+      console.log("detached", artuments);
+    },
+    beforeDestroy: function(){
+      console.log("beforeDestroy", artuments);
+    },
+    afterDestory: function(){
+      console.log("afterDestroy", artuments);
     },
     methods: {
       setContent: function(e){
@@ -26,7 +45,7 @@ $(function(){
           var conts$ = $("#links").find(".cont");
           var contindex = conts$.index(t$);
 
-          var usedata = app.data[contindex];
+          var usedata = this.conts[contindex];
           if( usedata ){
             this.name = usedata.name;
             this.pages = usedata.pages;
